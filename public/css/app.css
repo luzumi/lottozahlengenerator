@@ -1,0 +1,203 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body {
+    background-size: cover;
+}
+
+.container {
+    display: flex;
+}
+
+.settings {
+    width: 80%;
+    position: absolute;
+    left: 0;
+    transition: 0.3s;
+    background-color: #f5ac0a;
+}
+
+.lotto-fields-container {
+    display: grid;
+    height: 100vh;
+    background-color: rgba(245, 172, 10, 0.4); /* Hintergrundfarbe mit Opacity */
+    padding: 1rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow-y: auto;
+}
+
+.lotto-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #f5ac0a; /* Vollfarbige Hintergrundfarbe */
+    opacity: 0.8;
+    padding: 1rem;
+}
+
+.lotto-grid {
+    display: flex;
+    flex-wrap: wrap;
+    vertical-align: top;
+    grid-template-rows: repeat(1, 1fr);
+}
+
+.number-cell {
+    display: flex;
+    width: calc(100% / 8);
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    border: 1px solid #864e41;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #050d18;
+    background-color: #daccbe;
+}
+
+.lotto-grid-h2 {
+    position: relative;
+    text-align: center;
+    color: #753f34;
+    z-index: 1;
+    font-family: Comforter, sans-serif;
+    font-size: 2em;
+    line-height: 1.2;
+}
+
+.selected {
+    background-color: #764034;
+    color: #fff;
+}
+
+.settings-container {
+    position: relative;
+    z-index: 1;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.number-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.settings-overlay {
+    position: absolute;
+    width: 60%;
+    height: 100%;
+    right: -27%;
+    top: 0;
+    transition: width 0.5s ease;
+    background-color: rgb(243, 171, 10);
+    overflow: hidden;
+    visibility: hidden;
+    z-index: 10;
+}
+
+.toggle-button {
+    position: relative;
+    left: 0;
+    z-index: 555;
+    background-color: #f5ac0a;
+    color: #fff;
+    border-radius: 50%;
+    padding: 10px 10px;
+    margin-left: 2vw;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    opacity: 0.6;
+}
+
+.toggle-button:hover {
+    background-color: #e59400;
+    opacity: 1;
+}
+
+.toggle-button::before {
+    content: "\f013";
+    font-family: "Font Awesome 5 Free", sans-serif;
+    font-size: 9vw;
+    font-weight: 900;
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.toggle-button:hover {
+    transform: scale(1.2);
+}
+
+
+
+.title {
+    text-align: center;
+    color: #f5ac0a;
+    font-size: 6em;
+}
+
+@media screen and (orientation:landscape) {
+    body {
+        background: url('/storage/media/robotwide.png') no-repeat center center fixed;
+    }
+    .title {
+        font-family: 'Arial Black', sans-serif;
+    }
+    .lotto-fields-container {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 85%;
+        gap: normal;
+    }
+    .lotto-section {
+        width: 14vw;
+    }
+    .lotto-grid-h2 {
+        height: 3.8rem;
+    }
+    .toggle-button {
+        border: none;
+    }
+}
+
+@media screen and (orientation:portrait) {
+    body {
+        background: url('/storage/media/robotheigth.png') no-repeat center center fixed;
+    }
+    .title {
+        font-family: 'Comforter', sans-serif;
+    }
+    .lotto-fields-container {
+        align-content: start;
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 60%;
+        gap: 2rem;
+        overflow-y: auto;
+    }
+    .lotto-grid-h2 {
+        height: 2.8rem;
+    }
+    .toggle-button {
+        border: 1vh solid #e59400
+    }
+    .toggle-button:hover {
+        border: none;
+    }
+}
+
+
