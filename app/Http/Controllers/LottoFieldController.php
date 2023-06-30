@@ -92,9 +92,7 @@ class LottoFieldController extends Controller
     {
         $absenceNumbers = $this->getLastDrawnDates($numbers);
         asort($absenceNumbers);
-        $selectedNumbers = array_keys(array_slice($absenceNumbers, 0, 6, true));
-
-        return $selectedNumbers;
+        return array_keys(array_slice($absenceNumbers, 0, 6, true));
     }
 
     public function getLastDrawnDates(array $numbers): array
