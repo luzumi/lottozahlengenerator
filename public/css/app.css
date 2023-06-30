@@ -154,7 +154,7 @@ body {
 
 @media screen and (orientation:landscape) {
     body {
-        background: url('./storage/media/robotwide.png') no-repeat center center fixed;
+        background: url('storage/app/public/media/robotwide.png') no-repeat center center fixed;
     }
     .title {
         font-family: 'Comforter', sans-serif;
@@ -177,7 +177,7 @@ body {
 
 @media screen and (orientation:portrait) {
     body {
-        background: url('./storage/media/robotheigth.png') no-repeat center center fixed;
+        background: url('storage/app/public/media/robotheigth.png') no-repeat center center fixed;
     }
     .title {
         font-family: 'Comforter', sans-serif;
