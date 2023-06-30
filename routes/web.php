@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/lotto', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
@@ -22,5 +22,5 @@ Route::get('/lotto', function () {
 //    return view('generate');
 //});
 
-Route::get('/lotto/generate', [LottoFieldController::class, 'showLottoNumbers'])->name('generate');
-Route::get('/lotto/frequentNumbers', [LottoFieldController::class, 'frequentNumbers'])->name('frequentNumbers');
+Route::get('/generate', [LottoFieldController::class, 'showLottoNumbers'])->name('generate');
+Route::get('/frequentNumbers', [LottoFieldController::class, 'frequentNumbers'])->name('frequentNumbers');
