@@ -157,7 +157,7 @@ body {
         background: url('/storage/media/robotwide.png') no-repeat center center fixed;
     }
     .title {
-        font-family: 'Arial Black', sans-serif;
+        font-family: 'Comforter', sans-serif;
     }
     .lotto-fields-container {
         grid-template-columns: repeat(4, 1fr);
