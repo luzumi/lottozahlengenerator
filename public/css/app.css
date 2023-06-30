@@ -154,7 +154,7 @@ body {
 
 @media screen and (orientation:landscape) {
     body {
-        background: url("jetbrains://php-storm/navigate/reference?project=lottozahlengenerator&path=public/storage/media/robotwide.png")  no-repeat center center fixed;
+        background: url("https://github.com/luzumi/lottozahlengenerator/blob/57655deaefaec25f6da01bec089d4a8aca875261/storage/app/public/media/robotwide.png")  no-repeat center center fixed;
     }
     .title {
         font-family: 'Arial Black', sans-serif;
@@ -177,7 +177,7 @@ body {
 
 @media screen and (orientation:portrait) {
     body {
-        background: url("jetbrains://php-storm/navigate/reference?project=lottozahlengenerator&path=public/storage/media/robotheigth.png") no-repeat center center fixed;
+        background: url("https://github.com/luzumi/lottozahlengenerator/blob/57655deaefaec25f6da01bec089d4a8aca875261/storage/app/public/media/robotheigth.png") no-repeat center center fixed;
     }
     .title {
         font-family: 'Comforter', sans-serif;
