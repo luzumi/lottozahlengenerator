@@ -46,7 +46,7 @@ features = np.hstack((features, pairs.reshape((49, -1))))
 # ...
 # Wir erstellen ein einfaches neuronales Netzwerk, das aus zwei vollständig verbundenen Schichten besteht.
 model = keras.Sequential([
-    Dense(320, activation='relu', input_shape=(features.shape[1],)),
+    Dense(1000, activation='relu', input_shape=(features.shape[1],)),
     Dense(1, activation='sigmoid')
 ])
 
