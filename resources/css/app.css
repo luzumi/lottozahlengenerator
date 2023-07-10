@@ -175,9 +175,9 @@ body {
     }
 }
 
-@media screen and (orientation:portrait) {
+@media screen and (max-width: 768px) {
     body {
-        background: url("../storage/media/robotheigth.png") no-repeat center center fixed;
+        background: url("../storage/media/robotheigth.png") no-repeat top center fixed;
     }
     .title {
         font-family: 'Comforter', sans-serif;
