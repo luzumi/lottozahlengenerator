@@ -177,14 +177,14 @@ body {
 
 @media screen and (orientation:portrait) {
     body {
-        background: url("../storage/media/robotheigth.png") no-repeat center center fixed;
+        background: url("/storage/app/public/media/robotheigth.png") no-repeat center center fixed;
     }
     .title {
         font-family: 'Comforter', sans-serif;
     }
     .lotto-fields-container {
         align-content: start;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;   /* Only one column */
         max-width: 60%;
         gap: 2rem;
         overflow-y: auto;
@@ -199,5 +199,3 @@ body {
         border: none;
     }
 }
-
-
