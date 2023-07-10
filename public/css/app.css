@@ -152,7 +152,7 @@ body {
     font-size: 6em;
 }
 
-@media screen and (orientation:landscape) {
+@media screen and (min-width: 769px) {
     body {
         background: url('../storage/media/robotwide.png')  no-repeat center center fixed;
     }
