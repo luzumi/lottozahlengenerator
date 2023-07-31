@@ -26,7 +26,7 @@ class LottoFieldController extends Controller
                                 TemperaturesNumber     $temperaturesNumber,
                                 RareNumberAnalyzer     $rareNumberAnalyzer,
                                 FrequentNumberAnalyzer $frequentNumberAnalyzer,
-                                LongestAbsenceAnalyzer $longestAbsenceAnalyzer,)
+                                LongestAbsenceAnalyzer $longestAbsenceAnalyzer)
     {
         $this->lottoNumberGenerator = $lottoNumberGenerator;
         $this->frequentNumberAnalyzer = $frequentNumberAnalyzer;
