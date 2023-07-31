@@ -26,7 +26,7 @@ class LottoFieldController extends Controller
                                 TemperaturesNumber     $temperaturesNumber,
                                 RareNumberAnalyzer     $rareNumberAnalyzer,
                                 FrequentNumberAnalyzer $frequentNumberAnalyzer,
-                                LongestAbsenceAnalyzer $longestAbsenceAnalyzer)
+                                LongestAbsenceAnalyzer $longestAbsenceAnalyzer,)
     {
         $this->lottoNumberGenerator = $lottoNumberGenerator;
         $this->frequentNumberAnalyzer = $frequentNumberAnalyzer;
@@ -52,7 +52,9 @@ class LottoFieldController extends Controller
         $selectedNumbers['heisse Zahlen in den letzten 100 Ziehungen'] = $this->temperatureNumber->hotAndColdNumbers()['hotNumbers'];
         $selectedNumbers['kalte Zahlen in den letzten 100 Ziehungen'] = $this->temperatureNumber->hotAndColdNumbers()['coldNumbers'];
 
+
         return view('generate')->with(compact('selectedNumbers'));
     }
+
 
 }

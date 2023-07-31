@@ -52,45 +52,45 @@ class CombinationCount
      */
     public function combinations($array, $n): array
     {
-//        if ($n === 0) {
-//            return [[]];
-//        }
-//
-//        if (count($array) === 0) {
-//            return [];
-//        }
-//
-//        $head = $array[0];
-//        $tail = array_slice($array, 1);
-//
-//        $combsWithHead = array_map(function ($comb) use ($head) {
-//            return array_merge([$head], $comb);
-//        }, $this->combinations($tail, $n - 1));
-//
-//        $combsWithoutHead = $this->combinations($tail, $n);
-//
-//        return array_merge($combsWithHead, $combsWithoutHead);
+       if ($n === 0) {
+           return [[]];
+       }
+
+       if (count($array) === 0) {
+           return [];
+       }
+
+       $head = $array[0];
+       $tail = array_slice($array, 1);
+
+       $combsWithHead = array_map(function ($comb) use ($head) {
+           return array_merge([$head], $comb);
+       }, $this->combinations($tail, $n - 1));
+
+       $combsWithoutHead = $this->combinations($tail, $n);
+
+       return array_merge($combsWithHead, $combsWithoutHead);
 
 
-        $result = [];
-        $count = count($array);
-        $indices = range(0, $n - 1);
+        // $result = [];
+        // $count = count($array);s
+        // $indices = range(0, $n - 1);
 
-        while ($indices[0] < $count - $n + 1) {
-            $result[] = array_intersect_key($array, array_flip($indices));
+        // while ($indices[0] < $count - $n + 1) {
+        //     $result[] = array_intersect_key($array, array_flip($indices));
 
-            for ($i = $n - 1; $i >= 0; $i--) {
-                if ($indices[$i] < $count - $n + $i) {
-                    $indices[$i]++;
-                    for ($j = $i + 1; $j < $n; $j++) {
-                        $indices[$j] = $indices[$j - 1] + 1;
-                    }
-                    break;
-                }
-            }
-        }
+        //     for ($i = $n - 1; $i >= 0; $i--) {
+        //         if ($indices[$i] < $count - $n + $i) {
+        //             $indices[$i]++;
+        //             for ($j = $i + 1; $j < $n; $j++) {
+        //                 $indices[$j] = $indices[$j - 1] + 1;
+        //             }
+        //             break;
+        //         }
+        //     }
+        // }
 
-        return $result;
+        // return $result;
     }
 
     /**
