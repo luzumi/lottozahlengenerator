@@ -9,21 +9,23 @@ class NumberCount
      *
      * @return array
      */
-    public function getNumbersWithCount(): array
+    public function getNumbersWithCount($allDrawingNumbers): array
     {
         $numbers = range(1, 49);
-        $frequentNumbers = [];
+        $frequentNumbers = array_fill_keys($numbers, 0); // Initialize all keys with 0
+        $allDrawings = $allDrawingNumbers->getAllDrawings();
+        $keys = ['number_one', 'number_two', 'number_three', 'number_four', 'number_five', 'number_six'];
 
-        foreach ($numbers as $number) {
-            $count = \App\Models\LottoNumber::where('number_one', $number)
-                ->orWhere('number_two', $number)
-                ->orWhere('number_three', $number)
-                ->orWhere('number_four', $number)
-                ->orWhere('number_five', $number)
-                ->orWhere('number_six', $number)
-                ->count();
-            $frequentNumbers[$number] = $count;
+        foreach ($allDrawings as $drawing) {
+            // Increment the count for each number in the drawing
+            for ($i = 1; $i <= 6; $i++) {
+                $number = $drawing[$keys[$i - 1]];
+
+                $frequentNumbers[$number]++;
+            }
         }
+
         return $frequentNumbers;
     }
+
 }

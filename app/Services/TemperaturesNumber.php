@@ -2,29 +2,32 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Cache;
+
 class TemperaturesNumber
 {
     /**
-     * Gibt die am meisten und am seltensten gezogenen Zahlen zurück
+     * Gibt die Temperaturzahlen zurück
      *
+     * @param $allDrawings
      * @return array
      */
-    public function hotAndColdNumbers(): array
+    public function hotAndColdNumbers($allDrawingsService): array
     {
-        $drawings = \App\Models\LottoNumber::orderBy('id', 'desc')->take(100)->get();
+        $allDrawings = $allDrawingsService->getAllDrawings();
+        $drawings = collect($allDrawings)->sortByDesc('id')->take(100);
         $numbersFrequency = $this->getNumbersFrequency($drawings);
 
         arsort($numbersFrequency);
         $hotNumbers = array_slice($numbersFrequency, 0, 6, true);
-
-        asort($numbersFrequency);
-        $coldNumbers = array_slice($numbersFrequency, 0, 6, true);
+        $coldNumbers = array_slice($numbersFrequency, -6, 6, true);
 
         return [
             'hotNumbers' => array_keys($hotNumbers),
             'coldNumbers' => array_keys($coldNumbers)
         ];
     }
+
 
     /**
      * gibt die Häufigkeit der Zahlen zurück
@@ -34,24 +37,17 @@ class TemperaturesNumber
      */
     private function getNumbersFrequency($drawings): array
     {
-        $numbersFrequency = [];
-
-        foreach ($drawings as $drawing) {
-            $numbers = [$drawing->number_one,
+        $numbers = $drawings->flatMap(function ($drawing) {
+            return [
+                $drawing->number_one,
                 $drawing->number_two,
                 $drawing->number_three,
                 $drawing->number_four,
                 $drawing->number_five,
-                $drawing->number_six];
+                $drawing->number_six
+            ];
+        });
 
-            foreach ($numbers as $number) {
-                if (!isset($numbersFrequency[$number])) {
-                    $numbersFrequency[$number] = 0;
-                }
-                $numbersFrequency[$number]++;
-            }
-        }
-
-        return $numbersFrequency;
+        return $numbers->countBy()->all();
     }
 }

@@ -2,6 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\LottoNumber;
+use Illuminate\Database\Eloquent\Collection;
+use LaravelIdea\Helper\App\Models\_IH_LottoNumber_C;
+
 class FrequentedNumbers
 {
     private CombinationCount $combinationCount;
@@ -16,9 +20,9 @@ class FrequentedNumbers
      *
      * @return array
      */
-    public function frequentPairs(): array
+    public function frequentPairs($allDrawings): array
     {
-        $allDrawings = \App\Models\LottoNumber::all();
+
         $pairsCount = $this->combinationCount->getCombinationCounts($allDrawings, 2);
 
         // Sort the pairs by count descending
@@ -38,9 +42,8 @@ class FrequentedNumbers
      *
      * @return array
      */
-    public function frequentTrios(): array
+    public function frequentTrios($allDrawings): array
     {
-        $allDrawings = \App\Models\LottoNumber::all();
         $triosCount = $this->combinationCount->getCombinationCounts($allDrawings, 3);
 
         // Sort combinations by frequency

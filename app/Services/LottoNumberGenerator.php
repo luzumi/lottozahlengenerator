@@ -3,19 +3,14 @@
 namespace App\Services;
 
 use App\Models\LottoNumber;
+use Barryvdh\Debugbar\Facades\Debugbar;
 
 class LottoNumberGenerator
 {
-    public function generateRandomNumbers(): array
+    public function generateRandomNumbers($allDrawings): array
     {
-        $data = LottoNumber::select(
-            'number_one',
-            'number_two',
-            'number_three',
-            'number_four',
-            'number_five',
-            'number_six'
-        )->get()->toArray();
+        $data = $allDrawings;
+        $data = $data->getAllDrawings();
 
         $number_keys = ['number_one', 'number_two', 'number_three', 'number_four', 'number_five', 'number_six'];
         $frequency_dict = array_fill_keys($number_keys, []);
@@ -42,7 +37,8 @@ class LottoNumberGenerator
         return $this->draw_numbers($probability_dict, $number_keys);
     }
 
-    private function draw_number($position, $probability_dict) {
+    private function draw_number($position, $probability_dict): int|string|null
+    {
         $numbers = array_keys($probability_dict[$position]);
         $probabilities = array_values($probability_dict[$position]);
 
@@ -63,14 +59,22 @@ class LottoNumberGenerator
         return null;
     }
 
-    private function draw_numbers($probability_dict, $number_keys) {
+    private function draw_numbers($probability_dict, $number_keys): array
+    {
         $drawn_numbers = [];
         foreach ($number_keys as $key) {
             $drawn_number = $this->draw_number($key, $probability_dict);
+
+            // Wiederhole das Ziehen einer Zahl, bis eine neue Zahl gezogen wird
+            while (in_array($drawn_number, $drawn_numbers)) {
+                $drawn_number = $this->draw_number($key, $probability_dict);
+            }
+
             $drawn_numbers[] = $drawn_number;
         }
 
         return $drawn_numbers;
     }
+
 
 }

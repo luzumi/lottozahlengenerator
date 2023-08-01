@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\LottoNumber;
+
 class LongestAbsenceAnalyzer
 {
     private array $numbers;
@@ -16,9 +18,9 @@ class LongestAbsenceAnalyzer
      *
      * @return array
      */
-    public function getLongestAbsence(): array
+    public function getLongestAbsence($allDrawingNumbers): array
     {
-        $absenceNumbers = $this->getLastDrawnDates($this->numbers);
+        $absenceNumbers = $this->getLastDrawnDates($allDrawingNumbers);
         asort($absenceNumbers);
         return array_keys(array_slice($absenceNumbers, 0, 6, true));
     }
@@ -28,41 +30,43 @@ class LongestAbsenceAnalyzer
      *
      * @return array
      */
-    private function getLastDrawnDates(): array
+    private function getLastDrawnDates($allDrawingNumbers): array
     {
         $absenceNumbers = [];
+        $lastDrawnDates = $this->getLastDrawnForAllNumbers($allDrawingNumbers);
+
 
         foreach ($this->numbers as $number) {
-            $lastDrawn = $this->getLastDrawnForNumber($number);
-
-            if($lastDrawn) {
-                $absenceNumbers[$number] = $lastDrawn;
-            } else {
-                $absenceNumbers[$number] = '0000-00-00';
-            }
+            $absenceNumbers[$number] = $lastDrawnDates[$number] ?? '0000-00-00';
         }
-
         return $absenceNumbers;
     }
 
     /**
      * gibt das Datum der letzten Ziehung für die Zahl zurück
      *
-     * @param int $number
-     * @return string|null
+     * @return array
      */
-    private function getLastDrawnForNumber(int $number): ?string
+    private function getLastDrawnForAllNumbers($allDrawingNumbers): array
     {
-        $lastDrawn = \App\Models\LottoNumber::where('number_one', $number)
-            ->orWhere('number_two', $number)
-            ->orWhere('number_three', $number)
-            ->orWhere('number_four', $number)
-            ->orWhere('number_five', $number)
-            ->orWhere('number_six', $number)
-            ->join('draws', 'lotto_numbers.drawing_id', '=', 'draws.id')
-            ->orderByRaw("STR_TO_DATE(CONCAT(draws.year, '-', REPLACE(draws.draw_date, '.', '-')), '%Y-%m-%d') desc")
-            ->first();
-
-        return $lastDrawn ? $lastDrawn->year . '-' . str_replace('.', '-', $lastDrawn->draw_date) : null;
+        // Initialize an array to store the last drawn date for each number
+        $lastDrawn = array_fill(1, 49, null);
+        $keys = ['number_one', 'number_two', 'number_three', 'number_four', 'number_five', 'number_six'];
+        $drawings = $allDrawingNumbers->getAllDrawings();
+        // Iterate over all drawings
+        foreach ($drawings as $drawing) {
+            // Check each number in the drawing
+            for ($i = 1; $i <= 6; $i++) {
+                $number = $drawing[$keys[$i - 1]];
+                $date = $drawing->drawing['draw_date'] . '.' . $drawing->drawing['year'];
+                // Update the last drawn date for the number if it's more recent
+                if (!isset($lastDrawn[$number]) || $date > $lastDrawn[$number]) {
+                    $lastDrawn[$number] = str_replace('-','.', $date);
+                }
+            }
+        }
+        // Now $lastDrawn contains the last drawn date for each number
+        return $lastDrawn;
     }
+
 }

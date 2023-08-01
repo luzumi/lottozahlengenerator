@@ -9,10 +9,10 @@ class RareNumberAnalyzer
      *
      * @return array
      */
-    public function getRareNumbers(): array
+    public function getRareNumbers($allDrawingNumbers): array
     {
         $numberWithCount = new NumberCount();
-        $frequentNumbers = $numberWithCount->getNumbersWithCount();
+        $frequentNumbers = $numberWithCount->getNumbersWithCount($allDrawingNumbers);
 
         $selectedNumbers = array_keys(collect($frequentNumbers)->sort()->toArray());
         return array_slice($selectedNumbers, 0, 6);

@@ -13,10 +13,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+if (App::environment('local')) {
+    Debugbar::enable();
+}
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\welcome::class, 'showWelcomePage'])->name('welcome');
 
 //Route::get('/generate', function () {
 //    return view('generate');
