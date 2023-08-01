@@ -81,6 +81,4 @@ class LottoFieldController extends Controller
 
         return view('generate')->with(compact('selectedNumbers'));
     }
-
-
 }
