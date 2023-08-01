@@ -154,7 +154,7 @@ body {
 
 @media screen and (orientation:landscape) {
     body {
-        background: url(./images/robotwide.png?79bb2004bb7109409458b2be3a72f132)  no-repeat center center fixed;
+        background: url(../images/robotwide.png?79bb2004bb7109409458b2be3a72f132)  no-repeat center center fixed;
     }
     .title {
         font-family: 'Comforter', sans-serif;
@@ -177,7 +177,7 @@ body {
 
 @media screen and (max-width: 768px) {
     body {
-        background: url(./images/robotheigth.png?7b5bb04c4c32462a7623271ae508dcaf) no-repeat center center fixed;
+        background: url(../images/robotheigth.png?7b5bb04c4c32462a7623271ae508dcaf) no-repeat center center fixed;
     }
     .title {
         font-family: 'Comforter', sans-serif;
