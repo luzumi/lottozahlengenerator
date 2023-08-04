@@ -97,7 +97,7 @@ class DatabaseSeeder extends Seeder
 
             // Füge Gewinninformationen hinzu
             for ($i = 1; $i <= 9; $i++) {
-                $winningGrade = WinningGrade::where('Stufe', 'Gewinnklasse ' . $i)->first();
+                $winningGrade = 10 - $i;
 
                 if ($winningGrade === null) {
                     continue; // This would skip the current iteration of the loop.
@@ -105,10 +105,11 @@ class DatabaseSeeder extends Seeder
 
                 Winning::create([
                     'drawing_id' => $drawing->id,
-                    'winning_grade_id' => $winningGrade->id,
+                    'winning_grade_id' => $winningGrade,
                     'winners' => $drawingData['Gewinnklasse' . $i . '-Anzahl'],
-                    'payout' => $drawingData['Gewinnklasse' . $i . '-Auszahlung'],
+                    'payout' => $i!=9 ? $drawingData['Gewinnklasse' . $i . '-Auszahlung'] : 5,
                 ]);
+
             }
         }
     }

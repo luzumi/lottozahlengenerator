@@ -6,6 +6,7 @@ use App\Jobs\CalculateLottoNumbers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Redis;
 
 class Welcome extends Controller
 {

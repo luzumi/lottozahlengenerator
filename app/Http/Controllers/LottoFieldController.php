@@ -79,6 +79,7 @@ class LottoFieldController extends Controller
             $selectedNumbers['kalte Zahlen in den letzten 100 Ziehungen'] = $hotAndColdNumbers['coldNumbers'];
         }
 
+
         return view('generate')->with(compact('selectedNumbers'));
     }
 }

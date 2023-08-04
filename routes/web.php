@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LottoFieldController;
+use App\Http\Controllers\LottoUpdateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +26,4 @@ Route::get('/', [\App\Http\Controllers\welcome::class, 'showWelcomePage'])->name
 
 Route::get('/generate', [LottoFieldController::class, 'showLottoNumbers'])->name('generate');
 Route::get('/frequentNumbers', [LottoFieldController::class, 'frequentNumbers'])->name('frequentNumbers');
+Route::get('/update-draws', [LottoUpdateController::class, 'updateDatabase']);
