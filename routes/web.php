@@ -18,7 +18,7 @@ if (App::environment('local')) {
     Debugbar::enable();
 }
 
-Route::get('/', [\App\Http\Controllers\welcome::class, 'showWelcomePage'])->name('welcome');
+Route::get('/', [\App\Http\Controllers\Welcome::class, 'showWelcomePage'])->name('welcome');
 
 //Route::get('/generate', function () {
 //    return view('generate');
