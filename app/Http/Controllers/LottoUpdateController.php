@@ -28,4 +28,9 @@ class LottoUpdateController extends Controller
         return view('welcome', compact('draws'));
     }
 
+    public function lastDraw()
+    {
+        $lastDraw = Drawing::with('lottoNumbers')->latest()->first();
+        return response()->json($lastDraw);
+    }
 }

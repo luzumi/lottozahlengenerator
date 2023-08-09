@@ -18,7 +18,7 @@ if (App::environment('local')) {
     Debugbar::enable();
 }
 
-Route::get('/', [\App\Http\Controllers\welcome::class, 'showWelcomePage'])->name('welcome');
+Route::get('/', [\App\Http\Controllers\Welcome::class, 'showWelcomePage'])->name('welcome');
 
 //Route::get('/generate', function () {
 //    return view('generate');
@@ -27,3 +27,5 @@ Route::get('/', [\App\Http\Controllers\welcome::class, 'showWelcomePage'])->name
 Route::get('/generate', [LottoFieldController::class, 'showLottoNumbers'])->name('generate');
 Route::get('/frequentNumbers', [LottoFieldController::class, 'frequentNumbers'])->name('frequentNumbers');
 Route::get('/update-draws', [LottoUpdateController::class, 'updateDatabase']);
+Route::get('/api/last-draw', [LottoUpdateController::class, 'lastDraw'])->name('last-draw');
+

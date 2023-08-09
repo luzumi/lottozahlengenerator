@@ -1,0 +1,192 @@
+:root {
+    --scale-factor: 1; /* Standard-Skalierungsfaktor */
+    --scale-factor-width: 1; /* Skalierungsfaktor für Portrait-Modus */
+    --grid-color: rgb(190, 39, 28); /* Wheat color for the grid */
+    --box-border-color: var(--grid-color); /* Color for the box border */
+    --drawn-color: var(--box-border-color); /* Red color for the drawn numbers */
+    --number-color: #dbddd6; /* Beige color for the numbers */
+    --grid-border-color: var(--number-color); /* Yellow color for the grid border */
+    --title-bg-color: #daa911; /* Yellow color for the title background */
+    --title-shadow: var(--number-color); /* Color for the title text shadow */
+    --title-color: var(--grid-color); /* Color for the title text */
+    --pen: #050d18; /* Color for the pen */
+}
+
+.App {
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./Media/robotwide.png'); /* Replace with your actual image path */
+    background-size: cover;
+    background-position: right;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+.App-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(4rem + 2vmin);
+    color: #e3e0df;
+    font-family: 'Comforter', sans-serif;
+    text-shadow: #141a22 0 0 10px;
+}
+
+.App-link {
+    color: #61dafb;
+    text-decoration-line: none;
+}
+
+.Welcome {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Welcome-header {
+    font-size: calc(4rem + 2vmin);
+    color: #e3e0df;
+    font-family: 'Comforter', sans-serif;
+    text-shadow: #141a22 0 0 10px;
+    text-decoration: none;
+}
+
+.lotto-container {
+    position: relative;
+}
+
+.lotto-box {
+    background-color: var(--grid-color);
+    padding: 0.3rem;
+    max-width: 300px; /* Max width instead of fixed width */
+    width: 100%; /* Take full width */
+    height: auto;
+}
+
+.lotto-title-container {
+    background-color: var(--title-bg-color);
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.lotto-title {
+    color: var(--title-color);
+    text-shadow: var(--title-shadow) 0 0 10px;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.lotto-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0;
+    border: 0.375rem solid var(--title-bg-color);
+    padding: 0.125rem;
+    background-color: var(--grid-color);
+}
+
+.lotto-number {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--number-color);
+    width: 2.5rem;
+    height: 2.5rem;
+    text-align: center;
+    border: 1px solid var(--grid-color);
+    box-sizing: border-box;
+    color: var(--grid-color);
+    font-weight: bolder;
+    font-size: calc(1rem + 1vmin);
+}
+
+
+.drawn {
+    /*background-color: var(--drawn-color);*/
+    position: relative;
+
+}
+
+/*noinspection CssUnresolvedCustomProperty*/
+.drawn::before {
+    transform: rotate(var(--rotation-before, 0deg));
+    height: var(--height-before, 90%);
+}
+
+/*noinspection ALL*/
+.drawn::after {
+    transform: rotate(var(--rotation-after, 0deg));
+    height: var(--height-after, 90%);
+}
+
+.x-line {
+    position: absolute;
+    color: var(--pen);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+.lotto-draw-date {
+    font-size: calc(1rem + 2vmin);
+    color: var(--title-color);
+    text-shadow: var(--title-shadow) 0 0 10px;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .App {
+        background-image: url('./Media/robotheigth.png'); /* Replace with your actual image path for portrait view */
+    }
+
+    .lotto-container {
+        transform: scale(var(--scale-factor-width));
+        transform-origin: center;
+    }
+}
+
+@media screen and (max-height: 400px) {
+    /* Adjust based on your needs */
+    .lotto-container {
+        transform: scale(var(--scale-factor));
+        transform-origin: center;
+    }
+
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
