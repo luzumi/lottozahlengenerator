@@ -74,7 +74,7 @@ function LastDraw() {
             <div className="lotto-box">
                 <div className="lotto-title-container">
                     <div className="lotto-title">Letzte Ziehung vom:</div>
-                    <div className="lotto-draw-date">{date}</div>
+                    <div className="lotto-title">{date}</div>
                 </div>
                 <div className="lotto-grid">
                     {[...Array(49)].map((_, i) => {
