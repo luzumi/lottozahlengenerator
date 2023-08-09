@@ -40,6 +40,34 @@ function LastDraw() {
     function randomCurve() {
         return `M10 10 Q${Math.random() * 70 + 10} ${Math.random() * 40 + 30} 90 10`;
     }
+    function updateScale() {
+        // Maximale Höhe für den Container
+        const maxHeight = 400;
+        const maxWidth = 600;
+
+        // Aktuelle Bildschirmhöhe
+        const screenHeight = window.innerHeight;
+        const screenWidth = window.innerWidth;
+
+        // Berechnen Sie den Skalierungsfaktor basierend auf der Bildschirmhöhe
+        let scaleFactor = screenHeight / maxHeight;
+        let scaleFactorWidth = screenWidth / maxWidth;
+
+        // Begrenzen Sie den Skalierungsfaktor auf 1, um eine Übervergrößerung zu vermeiden
+        if (scaleFactor > 1) {
+            scaleFactor = 1;
+        }
+
+        // Aktualisieren Sie die CSS-Variable mit dem neuen Skalierungsfaktor
+        document.documentElement.style.setProperty('--scale-factor', scaleFactor);
+        document.documentElement.style.setProperty('--scale-factor-width', scaleFactorWidth);
+    }
+
+// Aktualisieren Sie die Skalierung beim Laden der Seite
+    updateScale();
+
+// Aktualisieren Sie die Skalierung, wenn die Fenstergröße geändert wird
+    window.addEventListener('resize', updateScale);
 
     return (
         <div className="lotto-container">
