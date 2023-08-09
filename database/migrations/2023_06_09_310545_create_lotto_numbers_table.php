@@ -27,6 +27,6 @@ class CreateLottonumbersTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('lottonumbers');
+        Schema::dropIfExists('lotto_numbers');
     }
 }
