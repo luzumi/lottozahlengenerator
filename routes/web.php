@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CalculationController;
 use App\Http\Controllers\LottoFieldController;
 use App\Http\Controllers\LottoUpdateController;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,12 @@ Route::get('/generate', [LottoFieldController::class, 'showLottoNumbers'])->name
 Route::get('/frequentNumbers', [LottoFieldController::class, 'frequentNumbers'])->name('frequentNumbers');
 Route::get('/update-draws', [LottoUpdateController::class, 'updateDatabase']);
 Route::get('/api/last-draw', [LottoUpdateController::class, 'lastDraw'])->name('last-draw');
+
+Route::post('/api/calculate', [LottoFieldController::class, 'calculate'])->name('calculate');
+
+Route::get('/csrf-token', function() {
+        return response()->json([
+        'csrfToken' => csrf_token(),
+    ]);
+});
 

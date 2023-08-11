@@ -7,6 +7,7 @@
     --number-color: #dbddd6; /* Beige color for the numbers */
     --grid-border-color: var(--number-color); /* Yellow color for the grid border */
     --title-bg-color: #daa911; /* Yellow color for the title background */
+    --toggle-button-bg-color: #e3be59;
     --title-shadow: var(--number-color); /* Color for the title text shadow */
     --title-color: var(--grid-color); /* Color for the title text */
     --pen: #050d18; /* Color for the pen */
@@ -63,6 +64,131 @@
 
 .lotto-container {
     position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+.options-overlay {
+    position: absolute;
+    top: 0;
+    left: 0.5rem;
+    z-index: 10; /* Über dem Lottoschein positionieren */
+    background: var(--title-bg-color); /* Hintergrund mit leichter Transparenz */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.2rem;
+    max-width: 300px; /* Max width instead of fixed width */
+    width: 92%; /* Take full width */
+    height: 97%;
+}
+
+.options-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    background-color: var(--title-bg-color);
+    border: none;
+}
+
+.options-menu-header {
+    background-color: var(--title-bg-color);
+    color: var(--title-color);
+    margin-top: 1rem;
+    padding: 0.4rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bolder;
+    cursor: pointer;
+    width: auto;
+    margin-bottom: 0.2rem;
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 80%;
+    padding: 1rem;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--title-color);
+    margin-bottom: 0.5rem;
+}
+
+.slider-container input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 1rem;
+    margin-bottom: 1rem;
+}
+
+.slider-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Für WebKit-Browser */
+    appearance: none;
+    width: 0; /* Entfernt den Knopf */
+    height: 0; /* Entfernt den Knopf */
+}
+
+.slider-container input[type="range"]::-moz-range-thumb {
+    width: 0; /* Für Firefox */
+    height: 0; /* Entfernt den Knopf */
+}
+
+.slider-container input[type="range"]::-ms-thumb {
+    width: 0; /* Für Internet Explorer / Edge */
+    height: 0; /* Entfernt den Knopf */
+}
+
+.slider-container input[type="range"]::-ms-track {
+    width: 100%;
+    height: 5px; /* Höhe des Schiebereglers */
+}
+
+.slider-container input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 5px; /* Höhe des Schiebereglers */
+}
+
+
+.slider-item {
+    margin: 10px 0; /* Abstand zwischen den Schieberegler-Elementen */
+}
+
+.confirm-button {
+    background-color: var(--toggle-button-bg-color);
+    border: none;
+    color: var(--title-color);
+    padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+}
+
+
+.toggle-button {
+    box-sizing: border-box;
+    background-color: var(--toggle-button-bg-color);
+    border: none;
+    border-top: 0.3rem solid var(--drawn-color);
+    border-left: 0.3rem solid var(--drawn-color);
+    border-right: 0.3rem solid var(--drawn-color);
+    color: var(--title-color);
+    padding: 0.3rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 0.2rem;
+    position: absolute; /* Positioniere den Button absolut */
+    z-index: 20; /* Über dem Overlay positionieren */
+    top: -1rem;
 }
 
 .lotto-box {

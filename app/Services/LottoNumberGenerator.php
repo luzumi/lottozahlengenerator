@@ -76,5 +76,4 @@ class LottoNumberGenerator
         return $drawn_numbers;
     }
 
-
 }

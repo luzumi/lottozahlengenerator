@@ -27,7 +27,7 @@ class FrequentedNumbers
 
         // Sort the pairs by count descending
         arsort($pairsCount);
-        $topThreePairs = array_slice($pairsCount, 0, 3, true);
+        $topThreePairs = array_slice($pairsCount, true);
 
         $numbers = [];
         foreach ($topThreePairs as $pair => $frequency) {
