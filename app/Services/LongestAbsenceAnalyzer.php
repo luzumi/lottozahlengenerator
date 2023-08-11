@@ -22,7 +22,7 @@ class LongestAbsenceAnalyzer
     {
         $absenceNumbers = $this->getLastDrawnDates($allDrawingNumbers);
         asort($absenceNumbers);
-        return array_keys(array_slice($absenceNumbers, 0, 6, true));
+        return array_keys(array_slice($absenceNumbers, true));
     }
 
     /**
@@ -68,5 +68,7 @@ class LongestAbsenceAnalyzer
         // Now $lastDrawn contains the last drawn date for each number
         return $lastDrawn;
     }
+
+
 
 }

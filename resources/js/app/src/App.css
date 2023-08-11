@@ -7,6 +7,7 @@
     --number-color: #dbddd6; /* Beige color for the numbers */
     --grid-border-color: var(--number-color); /* Yellow color for the grid border */
     --title-bg-color: #daa911; /* Yellow color for the title background */
+    --toggle-button-bg-color: #e3be59;
     --title-shadow: var(--number-color); /* Color for the title text shadow */
     --title-color: var(--grid-color); /* Color for the title text */
     --pen: #050d18; /* Color for the pen */
@@ -63,23 +64,212 @@
 
 .lotto-container {
     position: relative;
-}
-
-.lotto-box {
-    background-color: var(--grid-color);
-    padding: 0.3rem;
-    max-width: 300px; /* Max width instead of fixed width */
-    width: 100%; /* Take full width */
-    height: auto;
-}
-
-.lotto-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+    height: 47vh;
+    width: 37vw;
     background-color: var(--title-bg-color);
-    padding: 0.5rem;
+}
+
+.pulsating {
+    animation: pulsate 1s ease infinite;
+}
+
+@keyframes pulsate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.options-overlay {
+    position: absolute;
+    top: 0;
+    left: 0.5rem;
+    z-index: 10; /* Über dem Lottoschein positionieren */
+    background: var(--title-bg-color); /* Hintergrund mit leichter Transparenz */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.2rem;
+    max-width: 300px; /* Max width instead of fixed width */
+    width: 35vw; /* Take full width */
+    height: 97%;
+}
+
+.options-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    background-color: var(--title-bg-color);
+    border: none;
+}
+
+.options-menu-header {
+    background-color: var(--title-bg-color);
+    color: var(--title-color);
+    margin-top: 1rem;
+    padding: 0.4rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bolder;
+    cursor: pointer;
+    width: auto;
+    margin-bottom: 0.2rem;
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 80%;
+    padding: 1rem;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--title-color);
+    margin-bottom: 0.5rem;
+}
+
+.slider-container input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.slider-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Für WebKit-Browser */
+    appearance: none;
+    width: 0; /* Entfernt den Knopf */
+    height: 0; /* Entfernt den Knopf */
+}
+
+.slider-container input[type="range"]::-moz-range-thumb {
+    width: 0; /* Für Firefox */
+    height: 0; /* Entfernt den Knopf */
+}
+
+.slider-container input[type="range"]::-ms-thumb {
+    width: 0; /* Für Internet Explorer / Edge */
+    height: 0; /* Entfernt den Knopf */
+}
+
+.slider-container input[type="range"]::-ms-track {
+    width: 100%;
+    height: 5px; /* Höhe des Schiebereglers */
+}
+
+.slider-container input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 5px; /* Höhe des Schiebereglers */
+}
+
+
+.slider-item {
+    margin: 10px 0; /* Abstand zwischen den Schieberegler-Elementen */
+}
+
+.confirm-button {
+    background-color: var(--toggle-button-bg-color);
+    border: none;
+    color: var(--title-color);
+    padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between; /* Oder eine andere Methode, um die Buttons anzuordnen */
+}
+
+.toggle-button {
+    /* Ihr Stil für den Menü-Button */
+}
+
+.last-draw-button {
+    /* Ihr Stil für den Button "Letzte Ziehung" */
+}
+
+.toggle-button-container {
+    display: flex;
+    justify-content: stretch; /* Abstand zwischen den Buttons */
+    align-items: center; /* Zentriert die Buttons vertikal */
+    box-sizing: border-box;
+    background-color: var(--toggle-button-bg-color);
+    border: none;
+    border-top: 0.3rem solid var(--drawn-color);
+    border-left: 0.3rem solid var(--drawn-color);
+    border-right: 0.3rem solid var(--drawn-color);
+    padding: 0.3rem;
+    width: 38vw;
+    margin-bottom: 0.2rem;
+    position: absolute;
+    z-index: 20;
+    top: -1rem;
+}
+
+.toggle-button {
+    color: var(--title-color);
+    text-align: center;
+    text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    width: 50%;
+}
+
+.toggle-button-space{
+    width: 100%;
+}
+
+.toggle-button .material-icons {
+    padding: 0 1rem; /* Erhöht den Abstand zum Rand */
+}
+
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+}
+
+.lotto-box {
+    display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--title-bg-color);
+    border: 0.3rem solid var(--drawn-color);
+    padding: 0.3rem;
+    max-width: 300px; /* Max width instead of fixed width */
+    width: auto; /* Take full width */
+    height: 100%;
+}
+
+.lotto-title-container {
+    flex-grow: 1; /* Erlaubt dem Container zu wachsen */
+    flex-shrink: 1; /* Erlaubt dem Container zu schrumpfen */
+    flex-basis: auto; /* Setzt die Basisgröße auf auto */
+    display: flex; /* Aktiviert Flexbox */
+    align-items: center; /* Zentriert den Inhalt vertikal */
+    justify-content: center; /* Zentriert den Inhalt horizontal */
+    background-color: var(--title-bg-color);
+    position: relative;
+    top: 0.5rem;
+    padding: 0.5rem;
     font-size: 25px;
     font-weight: bolder;
 }
@@ -143,6 +333,27 @@
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.flashing {
+    animation: flash 0.5s linear infinite;
+}
+
+@keyframes flash {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.blinking {
+    font-size: 18px;
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
 }
 
 
