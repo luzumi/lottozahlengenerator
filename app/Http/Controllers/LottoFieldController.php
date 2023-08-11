@@ -166,6 +166,7 @@ class LottoFieldController extends Controller
 
         // Sortiere die ausgewählten Zahlen
         sort($selectedNumbers);
+        $selectedNumbers = array_slice($selectedNumbers, 0, 6);
 
         // Ausgabe der ausgewählten Zahlen
         return response()->json($selectedNumbers);
