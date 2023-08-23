@@ -20,6 +20,7 @@ if (App::environment('local')) {
 }
 
 Route::get('/', [\App\Http\Controllers\Welcome::class, 'showWelcomePage'])->name('welcome');
+Route::get('/lotto', [\App\Http\Controllers\Welcome::class, 'showWelcomePage'])->name('lotto_welcome');
 
 //Route::get('/generate', function () {
 //    return view('generate');

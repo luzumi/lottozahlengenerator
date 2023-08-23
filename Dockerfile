@@ -18,14 +18,14 @@ RUN a2enmod rewrite
 COPY .env.example /var/www/html/.env
 COPY ./ /var/www/html/
 
-# Setzen Sie die Berechtigungen
-RUN chown -R www-data:www-data /var/www/html
-
 # Installieren Sie Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Installieren Sie die Abhängigkeiten
 RUN composer install
+
+# Setzen Sie die Berechtigungen
+RUN chown -R www-data:www-data /var/www/html
 
 # Berechtigungen für das Speicherverzeichnis
 RUN chmod -R 775 /var/www/html/storage
