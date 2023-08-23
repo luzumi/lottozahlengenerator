@@ -15,7 +15,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY . /var/www/html
 
 # Navigieren Sie zum Verzeichnis
-WORKDIR /var/www/html/web/lotto
+WORKDIR /var/www/html/web/lottozahlengenerator
 RUN cp .env.example .env
 # Installieren Sie die Abhängigkeiten
 RUN composer install
