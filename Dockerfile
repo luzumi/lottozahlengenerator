@@ -14,6 +14,8 @@ RUN apt-get update -y && \
 RUN a2enmod rewrite
 
 # Kopieren Sie Ihre Laravel-App in den Container
+COPY .env.example /var/www/html/.env
+RUN php -r "file_exists('.env') || copy('.env.example', '.env');"
 COPY ./ /var/www/html/
 
 # Setzen Sie die Berechtigungen
