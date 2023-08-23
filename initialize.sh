@@ -5,7 +5,7 @@ git clone https://github.com/luzumi/lottozahlengenerator.git /path/to/clone
 
 # In das Verzeichnis wechseln
 # shellcheck disable=SC2164
-cd /var/www/html/lotto
+cd /var/www/html/web/lottozahlengenerator
 
 # Migrationen durchführen
 php artisan migrate

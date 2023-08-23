@@ -15,8 +15,8 @@ RUN apt-get update && apt-get install -y default-mysql-client
 RUN a2enmod rewrite
 
 # Kopieren Sie Ihre Laravel-App in den Container
-COPY .env.example /var/www/html/lotto/.env
-COPY ./ /var/www/html/lotto
+COPY .env.example /var/www/html/web/lottozahlengenerator/.env
+COPY ./ /var/www/html/web/lottozahlengenerator
 
 # Installieren Sie Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -28,7 +28,7 @@ RUN composer install
 RUN chown -R www-data:www-data /var/www/html
 
 # Berechtigungen für das Speicherverzeichnis
-RUN chmod -R 775 /var/www/html/lotto/storage
+RUN chmod -R 775 /var/www/html/web/lottozahlengenerator/storage
 
 # Skript in das Image kopieren
 COPY initialize.sh /initialize.sh
@@ -37,4 +37,4 @@ COPY initialize.sh /initialize.sh
 RUN chmod +x /initialize.sh
 
 # Setzen Sie den öffentlichen Ordner als Root
-WORKDIR /var/www/html/lotto/public
+WORKDIR /var/www/html/web/lottozahlengenerator/public
