@@ -9,7 +9,7 @@ RUN apt-get update -y && \
     docker-php-ext-install zip
 
 # Installieren Sie den MySQL-Client
-RUN apt-get update && apt-get install -y mysql-client
+RUN apt-get update && apt-get install -y default-mysql-client
 
 # Aktivieren Sie das Apache-Mod_rewrite
 RUN a2enmod rewrite
