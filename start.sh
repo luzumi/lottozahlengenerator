@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# Navigieren Sie zum Verzeichnis
+# Navigieren Sie zum Laravel-Verzeichnis
 # shellcheck disable=SC2164
-cd /var/www/html/web/lotto
+cd /var/www/html
 
-# Ziehen Sie den neuesten Code von Git
+# Aktualisieren Sie den Code von GitHub
 git pull origin master
 
-# Installieren Sie die Abhängigkeiten
-composer install
+# Führen Sie die Migrationen durch (falls erforderlich)
+php artisan migrate --force
 
-# Starten Sie den Webserver
-apache2-foreground
+# Starten Sie den Apache-Webserver
+exec apache2-foreground

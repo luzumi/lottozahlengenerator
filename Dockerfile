@@ -11,8 +11,8 @@ RUN apt-get update -y && \
 # Installieren Sie Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Klone das Repository
-RUN git clone https://github.com/luzumi/lottozahlengenerator.git /var/www/html
+# Kopieren Sie den aktuellen Kontext in den Container
+COPY . /var/www/html
 
 # Navigieren Sie zum Verzeichnis
 WORKDIR /var/www/html/web/lotto
@@ -29,7 +29,7 @@ RUN php artisan migrate --force && \
     php artisan db:seed
 
 # Setzen Sie den öffentlichen Ordner als Root
-WORKDIR /var/www/html/web/lotto/public
+WORKDIR /var/www/html/public
 
 # Kopieren Sie das Startskript in den Container
 COPY start.sh /start.sh
