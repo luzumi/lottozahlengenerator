@@ -11,14 +11,14 @@ RUN apt-get update -y && \
 # Installieren Sie Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Kopieren Sie den aktuellen Kontext in den Container
-COPY . /var/www/html
-
-# Kopieren Sie die .env.example-Datei und benennen Sie sie in .env um
-RUN cp /var/www/html/web/lottozahlengenerator/.env.example /var/www/html/web/lotto/.env
+# Klone das Repository
+RUN git clone https://github.com/luzumi/lottozahlengenerator.git /var/www/html
 
 # Navigieren Sie zum Verzeichnis
-WORKDIR /var/www/html/web/lotto
+WORKDIR /var/www/html
+
+# Kopieren Sie die .env.example-Datei und benennen Sie sie in .env um
+RUN cp .env.example .env
 
 # Installieren Sie die Abhängigkeiten
 RUN composer install

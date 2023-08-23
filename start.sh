@@ -8,7 +8,7 @@ cd /var/www/html
 git pull origin master
 
 # Führen Sie die Migrationen durch (falls erforderlich)
-php artisan migrate --force
+php artisan migrate
 
 # Starten Sie den Apache-Webserver
 exec apache2-foreground
