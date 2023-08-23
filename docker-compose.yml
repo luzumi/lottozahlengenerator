@@ -2,7 +2,7 @@ version: "3"
 services:
     laravel-app:
         build: .
-        container_name: laravel-app
+        container_name: laravel-app-lotto
         ports:
             - "8082:80"
         depends_on:
