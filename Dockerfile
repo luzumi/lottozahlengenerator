@@ -14,9 +14,12 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Kopieren Sie den aktuellen Kontext in den Container
 COPY . /var/www/html
 
+# Kopieren Sie die .env.example-Datei und benennen Sie sie in .env um
+RUN cp /var/www/html/web/lottozahlengenerator/.env.example /var/www/html/web/lotto/.env
+
 # Navigieren Sie zum Verzeichnis
-WORKDIR /var/www/html/web/lottozahlengenerator
-RUN cp .env.example .env
+WORKDIR /var/www/html/web/lotto
+
 # Installieren Sie die Abhängigkeiten
 RUN composer install
 
