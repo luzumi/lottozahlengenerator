@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y default-mysql-client
 RUN a2enmod rewrite
 
 # Kopieren Sie Ihre Laravel-App in den Container
+COPY .env /var/www/html/.env
 COPY ./ /var/www/html/
 
 # Setzen Sie die Berechtigungen
