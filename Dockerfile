@@ -14,11 +14,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Klone das Repository
 RUN git clone https://github.com/luzumi/lottozahlengenerator.git /var/www/html
 
-# Navigieren Sie zum Verzeichnis
-WORKDIR /var/www/html
-
 # Kopieren Sie die .env.example-Datei und benennen Sie sie in .env um
 RUN cp .env.example .env
+
+# Navigieren Sie zum Verzeichnis
+WORKDIR /var/www/html
 
 # Installieren Sie die Abhängigkeiten
 RUN composer install
