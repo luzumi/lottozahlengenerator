@@ -1,0 +1,25 @@
+version: "3"
+services:
+    laravel-app:
+        build: .
+        container_name: laravel-app
+        ports:
+            - "8080:80"
+        volumes:
+            - ./src:/var/www/html
+        depends_on:
+            - mariadb
+
+    mariadb:
+        image: mariadb:10.5
+        container_name: mariadb
+        environment:
+            MYSQL_ROOT_PASSWORD: lotto
+            MYSQL_DATABASE: lotto
+            MYSQL_USER: lotto
+            MYSQL_PASSWORD: lotto
+        volumes:
+            - mariadb_data:/var/lib/mysql
+
+volumes:
+    mariadb_data:
