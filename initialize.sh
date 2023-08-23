@@ -1,40 +1,16 @@
-FROM php:8.1-apache
+#!/bin/bash
 
-# Aktivieren Sie die erforderlichen PHP-Erweiterungen
-RUN apt-get update -y && \
-    apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev libzip-dev && \
-    docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install gd && \
-    docker-php-ext-install pdo pdo_mysql && \
-    docker-php-ext-install zip
+# Klonen des Repositories
+git clone https://github.com/luzumi/lottozahlengenerator.git /path/to/clone
 
-# Installieren Sie den MySQL-Client
-RUN apt-get update && apt-get install -y default-mysql-client
+# In das Verzeichnis wechseln
+# shellcheck disable=SC2164
+cd /var/www/html/lotto
 
-# Aktivieren Sie das Apache-Mod_rewrite
-RUN a2enmod rewrite
+# Migrationen durchführen
+php artisan migrate
 
-# Kopieren Sie Ihre Laravel-App in den Container
-COPY .env.example /var/www/html/lotto/.env
-COPY ./ /var/www/html/lotto
-
-# Installieren Sie Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Installieren Sie die Abhängigkeiten
-RUN composer install
-
-# Setzen Sie die Berechtigungen
-RUN chown -R www-data:www-data /var/www/html
-
-# Berechtigungen für das Speicherverzeichnis
-RUN chmod -R 775 /var/www/html/lotto/storage
-
-# Skript in das Image kopieren
-COPY initialize.sh /initialize.sh
-
-# Skript ausführbar machen
-RUN chmod +x /initialize.sh
-
-# Setzen Sie den öffentlichen Ordner als Root
-WORKDIR /var/www/html/lotto/public
+# Datenbank seeden, wenn leer
+if [ -z "$(php artisan db:seed --dry-run)" ]; then
+  php artisan db:seed
+fi
