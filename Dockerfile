@@ -1,3 +1,10 @@
+# Kopieren Sie die start.sh-Datei in den Container
+COPY start.sh /start.sh
+
+# Setzen Sie die Ausführungsberechtigungen für die start.sh-Datei
+RUN chmod +x /start.sh
+
+
 # Basisimage
 FROM php:8.1-apache
 
@@ -7,6 +14,16 @@ RUN apt-get update -y && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install gd pdo pdo_mysql zip && \
     a2enmod rewrite
+
+# Installieren Sie wget (falls nicht bereits vorhanden)
+RUN apt-get update && apt-get install -y wget
+
+# Laden Sie die start.sh-Datei mit wget herunter
+RUN wget https://raw.githubusercontent.com/luzumi/lottozahlengenerator/master/start.sh -O /start.sh
+
+# Setzen Sie die Ausführungsberechtigungen für die start.sh-Datei
+RUN chmod +x /start.sh
+
 
 # Installieren Sie Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
