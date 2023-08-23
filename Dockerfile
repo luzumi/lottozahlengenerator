@@ -44,10 +44,6 @@ RUN composer install
 RUN chown -R www-data:www-data /var/www/html && \
     chmod -R 775 /var/www/html/storage
 
-# Führen Sie die Migrationen und das Seeding durch (Sie müssen die DB-Verbindungsdaten im .env bereitstellen)
-RUN php artisan migrate --force && \
-    php artisan db:seed
-
 # Setzen Sie den öffentlichen Ordner als Root
 WORKDIR /var/www/html/public
 
