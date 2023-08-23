@@ -3,7 +3,11 @@
 FROM php:8.1-apache
 
 # Aktivieren Sie die erforderlichen PHP-Erweiterungen
-RUN docker-php-ext-install pdo pdo_mysql
+RUN apt-get update -y && \
+    apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install gd \
+    docker-php-ext-install pdo pdo_mysql
 
 # Aktivieren Sie das Apache-Mod_rewrite
 RUN a2enmod rewrite
