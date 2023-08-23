@@ -41,8 +41,8 @@ WORKDIR /var/www/html
 RUN composer install
 
 # Berechtigungen setzen
-RUN chown -R www-data:www-data /var/www/html && \
-    chmod -R 775 /var/www/html/storage
+#RUN chown -R www-data:www-data /var/www/html && \
+#    chmod -R 775 /var/www/html/storage
 
 # Setzen Sie den öffentlichen Ordner als Root
 WORKDIR /var/www/html/public
