@@ -9,7 +9,7 @@ services:
             - mariadb
 
     mariadb:
-        image: mariadb:10.5
+        image: mariadb:latest
         container_name: mariadb
         environment:
             MYSQL_ROOT_PASSWORD: lotto
