@@ -16,7 +16,7 @@ COPY . /var/www/html
 
 # Navigieren Sie zum Verzeichnis
 WORKDIR /var/www/html/web/lotto
-
+RUN cp .env.example .env
 # Installieren Sie die Abhängigkeiten
 RUN composer install
 
