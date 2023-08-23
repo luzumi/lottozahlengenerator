@@ -1,5 +1,3 @@
-# Dockerfile
-
 FROM php:8.1-apache
 
 # Aktivieren Sie die erforderlichen PHP-Erweiterungen
@@ -10,12 +8,13 @@ RUN apt-get update -y && \
     docker-php-ext-install pdo pdo_mysql && \
     docker-php-ext-install zip
 
+# Installieren Sie den MySQL-Client
+RUN apt-get update && apt-get install -y mysql-client
+
 # Aktivieren Sie das Apache-Mod_rewrite
 RUN a2enmod rewrite
 
 # Kopieren Sie Ihre Laravel-App in den Container
-COPY .env.example /var/www/html/.env
-RUN php -r "file_exists('.env') || copy('.env.example', '.env');"
 COPY ./ /var/www/html/
 
 # Setzen Sie die Berechtigungen
