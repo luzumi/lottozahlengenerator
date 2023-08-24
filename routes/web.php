@@ -18,24 +18,24 @@ use Illuminate\Support\Facades\Route;
 if (App::environment('local')) {
     Debugbar::enable();
 }
-
-Route::get('/', [\App\Http\Controllers\Welcome::class, 'showWelcomePage'])->name('welcome');
-Route::get('/lotto', [\App\Http\Controllers\Welcome::class, 'showWelcomePage'])->name('lotto_welcome');
+Route::prefix('lotto')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Welcome::class, 'showWelcomePage'])->name('welcome');
+    Route::get('/lotto', [\App\Http\Controllers\Welcome::class, 'showWelcomePage'])->name('lotto_welcome');
 
 //Route::get('/generate', function () {
 //    return view('generate');
 //});
 
-Route::get('/generate', [LottoFieldController::class, 'showLottoNumbers'])->name('generate');
-Route::get('/frequentNumbers', [LottoFieldController::class, 'frequentNumbers'])->name('frequentNumbers');
-Route::get('/update-draws', [LottoUpdateController::class, 'updateDatabase']);
-Route::get('/api/last-draw', [LottoUpdateController::class, 'lastDraw'])->name('last-draw');
+    Route::get('/generate', [LottoFieldController::class, 'showLottoNumbers'])->name('generate');
+    Route::get('/frequentNumbers', [LottoFieldController::class, 'frequentNumbers'])->name('frequentNumbers');
+    Route::get('/update-draws', [LottoUpdateController::class, 'updateDatabase']);
+    Route::get('/api/last-draw', [LottoUpdateController::class, 'lastDraw'])->name('last-draw');
 
-Route::post('/api/calculate', [LottoFieldController::class, 'calculate'])->name('calculate');
+    Route::post('/api/calculate', [LottoFieldController::class, 'calculate'])->name('calculate');
 
-Route::get('/csrf-token', function() {
+    Route::get('/csrf-token', function () {
         return response()->json([
-        'csrfToken' => csrf_token(),
-    ]);
+            'csrfToken' => csrf_token(),
+        ]);
+    });
 });
-
