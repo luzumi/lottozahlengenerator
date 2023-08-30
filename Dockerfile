@@ -1,8 +1,14 @@
+# Laden Sie die start.sh-Datei mit wget herunter
+RUN wget https://raw.githubusercontent.com/luzumi/lottozahlengenerator/master/start.sh -O /start.sh
+
 # Kopieren Sie die start.sh-Datei in den Container
 COPY start.sh /start.sh
 
 # Setzen Sie die Ausführungsberechtigungen für die start.sh-Datei
 RUN chmod +x /start.sh
+
+# Kopieren Sie das Startskript in den Container
+COPY start.sh /start.sh
 
 
 # Basisimage
@@ -17,12 +23,6 @@ RUN apt-get update -y && \
 
 # Installieren Sie wget (falls nicht bereits vorhanden)
 RUN apt-get update && apt-get install -y wget
-
-# Laden Sie die start.sh-Datei mit wget herunter
-RUN wget https://raw.githubusercontent.com/luzumi/lottozahlengenerator/master/start.sh -O /start.sh
-
-# Setzen Sie die Ausführungsberechtigungen für die start.sh-Datei
-RUN chmod +x /start.sh
 
 
 # Installieren Sie Composer
@@ -47,12 +47,10 @@ RUN composer install
 # Setzen Sie den öffentlichen Ordner als Root
 WORKDIR /var/www/html/public
 
-# Kopieren Sie das Startskript in den Container
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
-
 # Setzen Sie das Startskript als Einstiegspunkt
 ENTRYPOINT ["/start.sh"]
 
-# Starten Sie den Webserver
-CMD ["apache2-foreground"]
+# Nginx-Phase
+FROM nginx:alpine
+COPY --from=node-phase /app/frontend/build /usr/share/nginx/html
+COPY --from=php-phase /app/backend /var/www/html

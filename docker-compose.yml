@@ -1,23 +1,159 @@
-version: "3"
+version: '3'
 services:
-    laravel-app:
+    lotto-app:
         build: .
-        container_name: laravel-app-lotto
-        ports:
-            - "8082:80"
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.lotto.rule=PathPrefix(`/lotto`)"
+            - "traefik.http.routers.lotto.entrypoints=web"
         depends_on:
             - mariadb
-
     mariadb:
         image: mariadb:latest
-        container_name: mariadb-lotto
         environment:
             MYSQL_ROOT_PASSWORD: lotto
             MYSQL_DATABASE: lotto
             MYSQL_USER: lotto
             MYSQL_PASSWORD: lotto
-        volumes:
-            - mariadb_data:/var/lib/mysql
+networks:
+    default:
+        external:
+            name: traefik_default
 
-volumes:
-    mariadb_data:
+
+
+#version: '3'
+#
+#services:
+#    traefik:
+#        image: traefik:latest
+#        container_name: traefik
+#        command:
+#            - "--providers.docker=true"
+#            - "--providers.docker.exposedbydefault=false"
+#            - "--providers.docker.network=traefik_web"
+#            - "--entrypoints.web.address=:80"
+#            - "--entrypoints.http.http.redirections.entryPoint.to=https"
+#            - "--entrypoints.http.http.redirections.entryPoint.scheme=https"
+#            - "--entrypoints.websecure.address=:443"
+#            - "--entrypoints.http.http.tls.certresolver=le"
+#            - "--certificatesresolvers.le.acme.httpchallenge=true"
+#            - "--certificatesresolvers.le.acme.tlschallenge=true"
+#            - "--certificatesresolvers.le.acme.email=corataca@gmail.com"
+#            - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
+#        ports:
+#            - "80:80"
+#            - "443:443"
+#            - "8080:8080"
+#        volumes:
+#            - /var/run/docker.sock:/var/run/docker.sock
+#            - ./letsencrypt:/letsencrypt
+#        networks:
+#            - traefik_web
+
+
+
+
+
+
+
+
+
+
+
+
+#version: "3"
+#services:
+#    laravel-app:
+#        .build: .
+#        container_name: laravel-app-lotto
+#        ports:
+#            - "8082:80"
+#        depends_on:
+#            - mariadb
+#
+#    mariadb:
+#        image: mariadb:latest
+#        container_name: mariadb-lotto
+#        environment:
+#            MYSQL_ROOT_PASSWORD: lotto
+#            MYSQL_DATABASE: lotto
+#            MYSQL_USER: lotto
+#            MYSQL_PASSWORD: lotto
+#        volumes:
+#            - mariadb_data:/var/lib/mysql
+#
+#volumes:
+#    mariadb_data:
+
+
+#version: '3'
+#
+#services:
+#    traefik:
+#        container_name: traefik
+#        image: traefik:v2.0
+#        command:
+#            - "--api.insecure=true"
+#            - "--providers.docker=true"
+#            - "--entryPoints.web.address=:80"
+#            - "--entryPoints.websecure.address=:443"
+#            #            - "--entryPoints.webinternal.address=:8081" # Interner Eintrittspunkt auf Port 8081
+#            - "--certificatesResolvers.le.acme.email=corataca@gmail.com"
+#            - "--certificatesResolvers.le.acme.storage=acme.json"
+#            - "--certificatesResolvers.le.acme.tlsChallenge=true"
+#            - "--certificatesResolvers.le.acme.httpChallenge=true"
+#            - "--certificatesResolvers.le.acme.httpChallenge.entryPoint=web"
+#        restart: always
+#        ports:
+#            - "80:80"
+#            - "443:443"
+#            - "8080:8080"
+#        networks:
+#            - web
+#        volumes:
+#            - /var/run/docker.sock:/var/run/docker.sock
+#            - ./acme.json:/acme.json
+#        labels:
+#            # Redirect all HTTP to HTTPS permanently
+#            - traefik.http.routers.http_catchall.rule=HostRegexp(`{any:.+}`)
+#            - traefik.http.routers.http_catchall.entrypoints=web
+#            - traefik.http.routers.http_catchall.middlewares=https_redirect
+#            - traefik.http.middlewares.https_redirect.redirectscheme.scheme=https
+#            - traefik.http.middlewares.https_redirect.redirectscheme.permanent=true
+#
+#            # Internal router using self-signed certificate
+#        #           - traefik.http.routers.internal.rule=Host(`localhost`)
+#        #          - traefik.http.routers.internal.entrypoints=webinternal
+#        #         - traefik.http.routers.internal.tls.certificates.certfile=/mycert.crt
+#        #        - traefik.http.routers.internal.tls.certificates.keyfile=/mykey.key
+#
+#    whoami:
+#        image: "containous/whoami"
+#        platform: linux/amd64
+#        container_name: "simple-service"
+#        restart: always
+#        networks:
+#            - web
+#        labels:
+#            - traefik.http.routers.whoami.rule=Host(`luzumi.home-webserver.de`)
+#            - traefik.http.routers.whoami.tls=true
+#            - traefik.http.routers.whoami.tls.certresolver=le
+#            - traefik.http.middlewares.whoami.compress=true
+#            - traefik.http.routers.whoami.middlewares=whoami@docker
+#
+#        #    laravel-app-lotto:
+#        #      image: "lotto-laravel-app:latest" # Verwenden Sie das tatsächliche Image für Ihre Laravel-App
+#        #      container_name: "laravel-app-lotto"
+#        #      networks:
+#        #        - web
+#        #      labels:
+#        #        - traefik.http.routers.lotto.rule=Host(`luzumi.home-webserver.de`) && PathPrefix(`/lotto`)
+#        #        - traefik.http.routers.lotto.middlewares=lotto-stripprefix
+#        #        - traefik.http.middlewares.lotto-stripprefix.stripprefix.prefixes=/lotto
+#        #        - traefik.http.routers.lotto.tls.certresolver=le
+#
+#networks:
+#    web:
+#        external: true
+

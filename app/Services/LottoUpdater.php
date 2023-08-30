@@ -15,58 +15,58 @@ use function PHPUnit\Framework\isEmpty;
 class LottoUpdater
 {
     protected XRapidApi $xRapidApi;
+    private Carbon $carbon;
 
-    public function __construct(XRapidApi $xRapidApi)
+    public function __construct(XRapidApi $xRapidApi, Carbon $carbon)
     {
         $this->xRapidApi = $xRapidApi;
+        $this->carbon = $carbon;
     }
 
     public function updateDatabase(AllDrawingNumbers $allDrawingNumbers): void
     {
-        // Ermittle das letzte vorhandene Ziehungsdatum in der Datenbank
         $lastDrawDate = $this->getLastDrawDateInDatabase($allDrawingNumbers);
-
-        // Starte am Tag nach dem letzten vorhandenen Ziehungsdatum
         $date = $lastDrawDate->addDay();
+        $today = $this->carbon->today();
 
-        // Heutiges Datum
-        $today = Carbon::today();
+        $this->iterateThroughDatesAndPerformUpdates($date, $today);
+    }
 
-        // Iteriere über die Daten
-        while ($date->lte($today)) {
-            // Überprüfe, ob das Datum ein Mittwoch oder Samstag ist
-            if ($date->dayOfWeek == CarbonInterface::WEDNESDAY || $date->dayOfWeek == CarbonInterface::SATURDAY) {
+    private function iterateThroughDatesAndPerformUpdates(Carbon $startDate, Carbon $endDate): void
+    {
+        $date = $startDate;
 
-                // Überprüfe, ob das Datum bereits in der Datenbank vorhanden ist
-                if (!$this->isDateInDatabase($date)) {
-                    try {
-                        // Lotto-Ergebnisse abrufen
-                        $results = $this->xRapidApi->getLottoResults($date->toDateString());
-//                        dd($date->dayOfWeek,
-//                            CarbonInterface::SATURDAY,
-//                            $date,
-//                            $date->lte($today),
-//                            $today,
-//                            $this->isDateInDatabase($date),
-//                            $results,
-//                        );
-                        // Ergebnisse in der Datenbank speichern
-                        if(!isset($results->numbers)) {
-                            $date->addDay();
-                            continue;
-                        }
-
-                        $this->saveResultsToDatabase($results, $date);
-                    } catch (GuzzleException $e) {
-                        Log::alert('LottoUpdater: ' . $e->getMessage());
-                    }
-                }
+        while ($date->lte($endDate)) {
+            if ($this->isLottoDrawDate($date)) {
+                $this->updateLottoDrawForDate($date);
             }
 
-            // Zum nächsten Tag gehen
             $date->addDay();
         }
     }
+
+    private function isLottoDrawDate(Carbon $date): bool
+    {
+        return $date->dayOfWeek == CarbonInterface::WEDNESDAY || $date->dayOfWeek == CarbonInterface::SATURDAY;
+    }
+
+    private function updateLottoDrawForDate(Carbon $date): void
+    {
+        if (!$this->isDateInDatabase($date)) {
+            try {
+                $results = $this->xRapidApi->getLottoResults($date->toDateString());
+
+                if (!isset($results->numbers)) {
+                    return;
+                }
+
+                $this->saveResultsToDatabase($results, $date);
+            } catch (GuzzleException $e) {
+                Log::alert('LottoUpdater: ' . $e->getMessage());
+            }
+        }
+    }
+
 
     protected function getLastDrawDateInDatabase(AllDrawingNumbers $allDrawingNumbers): Carbon
     {
