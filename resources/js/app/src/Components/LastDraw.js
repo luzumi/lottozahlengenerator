@@ -2,10 +2,9 @@ import React, {useEffect, useState} from 'react';
 import OptionsMenu from './OptionsMenu'; // korrekter Pfad?
 import axios from 'axios'; // library for making HTTP requests
 
-response.data.csrfToken = undefined;
+
 
 function LastDraw() {
-    const [lastDraw, setLastDraw] = useState(null);
     const [isLastDraw, setIsLastDraw] = useState(true); // Zustand für die Anzeige der letzten Ziehung
     const [date, setDate] = useState(null);
     const [showOptionsMenu, setShowOptionsMenu] = useState(false); // Zustand für das Optionsmenü
@@ -132,6 +131,12 @@ function LastDraw() {
     }
 
     function includesNumber(draw, number) {
+        draw.number_six = undefined;
+        draw.number_five = undefined;
+        draw.number_four = undefined;
+        draw.number_three = undefined;
+        draw.number_two = undefined;
+        draw.number_one = undefined;
         const drawnNumbers = [
             draw.number_one,
             draw.number_two,
