@@ -5,3 +5,9 @@ COPY resources/js/app/package*.json ./
 RUN npm install
 COPY resources/js/app/ .
 RUN npm run build
+
+# Install serve
+RUN npm install -g serve
+
+# Start serve
+CMD ["serve", "-s", "build"]

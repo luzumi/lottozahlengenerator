@@ -3,7 +3,7 @@ services:
     laravel-app:
         build:
             context: .
-            dockerfile: Dockerfile.laravel
+            dockerfile: Dockerfile.lara
         labels:
             - "traefik.enable=true"
             - "traefik.http.routers.lotto-backend.rule=PathPrefix(`/lotto/api`)"
