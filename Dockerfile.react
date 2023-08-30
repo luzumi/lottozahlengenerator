@@ -1,0 +1,7 @@
+# React-Phase
+FROM node:16 AS node-phase
+WORKDIR /app
+COPY resources/js/app/package*.json ./
+RUN npm install
+COPY resources/js/app/ .
+RUN npm run build

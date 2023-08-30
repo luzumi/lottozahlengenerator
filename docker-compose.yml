@@ -1,13 +1,27 @@
 version: '3'
 services:
-    lotto-app:
-        build: .
+    laravel-app:
+        build:
+            context: .
+            dockerfile: Dockerfile.laravel
         labels:
             - "traefik.enable=true"
-            - "traefik.http.routers.lotto.rule=PathPrefix(`/lotto`)"
-            - "traefik.http.routers.lotto.entrypoints=web"
+            - "traefik.http.routers.lotto-backend.rule=PathPrefix(`/lotto/api`)"
+        networks:
+            - traefik_default
         depends_on:
             - mariadb
+
+    react-app:
+        build:
+            context: .
+            dockerfile: Dockerfile.react
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.lotto-frontend.rule=PathPrefix(`/lotto`)"
+        networks:
+            - traefik_default
+
     mariadb:
         image: mariadb:latest
         environment:
@@ -15,11 +29,10 @@ services:
             MYSQL_DATABASE: lotto
             MYSQL_USER: lotto
             MYSQL_PASSWORD: lotto
-networks:
-    default:
-        external:
-            name: traefik_default
 
+networks:
+    traefik_default:
+        external: true
 
 
 #version: '3'
