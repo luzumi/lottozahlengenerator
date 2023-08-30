@@ -29,6 +29,10 @@ services:
             MYSQL_DATABASE: lotto
             MYSQL_USER: lotto
             MYSQL_PASSWORD: lotto
+        healthcheck:
+            test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+            timeout: 20s
+            retries: 10
 
 networks:
     traefik_default:
