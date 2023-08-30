@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import OptionsMenu from './OptionsMenu'; // korrekter Pfad?
 import axios from 'axios'; // library for making HTTP requests
 
+response.data.csrfToken = undefined;
+
 function LastDraw() {
     const [lastDraw, setLastDraw] = useState(null);
     const [isLastDraw, setIsLastDraw] = useState(true); // Zustand für die Anzeige der letzten Ziehung
